@@ -23,4 +23,7 @@ bcrypt = Bcrypt()
 from app.user.routes import user
 app.register_blueprint(user, url_prefix='/api/user')
 
+from app.stocks.routes import stocks
+app.register_blueprint(stocks, url_prefix='/api/stocks')
+
 print(app.url_map)

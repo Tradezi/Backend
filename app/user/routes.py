@@ -1,5 +1,4 @@
-
-import json
+import json 
 from flask import Blueprint, request, Response, make_response, jsonify
 
 # from app.user.controller import user_login, create_new_user, change_password
