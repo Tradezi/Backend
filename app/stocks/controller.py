@@ -4,6 +4,8 @@ from datetime import date
 from nsepy import get_history
 from flask import request, Response, make_response, jsonify
 
+from app.stocks.model import Stock
+
 def stock_history_data(symbol):
     try:
         date_today = date(date.today().year, date.today().month, date.today().day)

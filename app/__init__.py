@@ -2,7 +2,7 @@ import os
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
-
+from itsdangerous import URLSafeTimedSerializer
 
 from app.server_config import ServerConfig
 
@@ -18,7 +18,10 @@ $ export CONFIGURATION_FILE=./config/debug_environment.cfg
 
 # Database setup
 db = SQLAlchemy(app)
+
 bcrypt = Bcrypt()
+ts = URLSafeTimedSerializer(app.config["SECRET_KEY"])
+
 
 from app.user.routes import user
 app.register_blueprint(user, url_prefix='/api/user')
