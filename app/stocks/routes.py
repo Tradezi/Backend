@@ -12,7 +12,7 @@ stocks = Blueprint('stocks', __name__)
 
 @stocks.route("/history", methods=["GET"])
 @cross_origin(supports_credentials=True)
-@Auth.auth_required
+# @Auth.auth_required   
 def stock_history():
     try:
         symbol = request.args.get('symbol')
@@ -27,7 +27,7 @@ def stock_history():
 
 @stocks.route("/current", methods=["GET"])
 @cross_origin(supports_credentials=True)
-@Auth.auth_required
+# @Auth.auth_required
 def stock_current():
     try:
         symbol = request.args.get('symbol')
