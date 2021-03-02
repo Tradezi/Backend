@@ -45,7 +45,13 @@ def stock_history_data(symbol,years):
 def stock_current_data(symbol):
     try:
         nse = Nse()
+        dt_string = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        print("Collecting Current Stock Data","-"*80)
+        print("date and time =", dt_string)
         stock = nse.get_quote(symbol)
+        dt_string = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        print("date and time =", dt_string)
+        print("Current Stock Data Collected","-"*80)
         stock_price = {
             "date": "{}-{}-{}".format(date.today().day, date.today().month, date.today().year),
             "price": stock['lastPrice'],
