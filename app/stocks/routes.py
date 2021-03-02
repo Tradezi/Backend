@@ -16,7 +16,8 @@ stocks = Blueprint('stocks', __name__)
 def stock_history():
     try:
         symbol = request.args.get('symbol')
-        return stock_history_data(symbol)
+        years = int(request.args.get('years'))
+        return stock_history_data(symbol,years)
     except Exception as e:
         return Response(
             mimetype="application/json",

@@ -1,16 +1,25 @@
 import json
 from nsetools import Nse
-from datetime import date
+from datetime import date, datetime
 from nsepy import get_history
 from flask import request, Response, make_response, jsonify
 
 from app.stocks.model import Stock
 
-def stock_history_data(symbol):
+def stock_history_data(symbol,years):
     try:
         date_today = date(date.today().year, date.today().month, date.today().day)
-        date_start = date(date.today().year-10, date.today().month, date.today().day)
+        date_start = date(date.today().year-years, date.today().month, date.today().day)
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        print("Collecting Stock Data","-"*80)
+        print("date and time =", dt_string)
         history = get_history(symbol=symbol.upper(), start=date_start, end=date_today)
+        now = datetime.now()
+        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+        print("date and time =", dt_string)
+        print("Stock Data Collected","-"*80)
+
         data = []
         for i in range(len(history.Close.values)):
             stock_price = {
