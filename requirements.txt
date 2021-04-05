@@ -1,10 +1,11 @@
-gunicorn==19.9.0
-itsdangerous==1.1.0
 nsepy==0.8
+pandas==1.1.4
 Flask_Bcrypt==0.7.1
-Flask_Cors==3.0.8
 nsetools==1.0.11
 Flask==1.1.1
+itsdangerous==1.1.0
 Flask_SQLAlchemy==2.4.1
+Flask_Cors==3.0.8
 app==0.0.1
 PyJWT==2.0.1
+yfinance==0.1.59
