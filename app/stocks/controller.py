@@ -1,23 +1,22 @@
 import json
+import pandas as pd
 from nsetools import Nse
 from datetime import date, datetime
 from nsepy import get_history
+import yfinance as yf
 from flask import request, Response, make_response, jsonify
 
 from app.stocks.model import Stock
 
-def stock_history_data(symbol,years):
+def nse_stock_history_data(symbol,years):
     try:
         date_today = date(date.today().year, date.today().month, date.today().day)
         date_start = date(date.today().year-years, date.today().month, date.today().day)
-        now = datetime.now()
-        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+
         print("Collecting Stock Data","-"*80)
-        print("date and time =", dt_string)
+        print("date and time: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         history = get_history(symbol=symbol.upper(), start=date_start, end=date_today)
-        now = datetime.now()
-        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        print("date and time =", dt_string)
+        print("date and time: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         print("Stock Data Collected","-"*80)
 
         data = []
@@ -30,7 +29,7 @@ def stock_history_data(symbol,years):
         del history
 
         return Response(
-            mimetype="application/json",
+            mimetype="application/json",        
             response=json.dumps(data),
             status=200
         )
@@ -42,16 +41,51 @@ def stock_history_data(symbol,years):
             status=400
         )
 
-def stock_current_data(symbol):
+
+def nyse_stock_history_data(symbol,years):
+    try:
+        date_today = "{}-{}-{}".format(date.today().year, date.today().month, date.today().day)
+        date_start = "{}-{}-{}".format(date.today().year-years, date.today().month, date.today().day)
+
+        print("Collecting Stock Data","-"*80)
+        print("date and time: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+        history = yf.download(symbol.upper(),date_start,date_today)
+        # data = yf.download(tickers='UBER', period='5d', interval='5m')
+        print("date and time: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+        print("Stock Data Collected","-"*80)
+
+        data = []
+        for i in range(len(history.Close.values)):
+            stock_price = {
+                "date":  pd.to_datetime(str(history.Close.index.values[i])).strftime("%m-%d-%Y"),
+                "price": history.Close.values[i],
+            }
+            data.append(stock_price)
+        del history
+
+        return Response(
+            mimetype="application/json",        
+            response=json.dumps(data),
+            status=200
+        )
+    except Exception as e:
+        print("Error: {}".format(e))
+        return Response(
+            mimetype="application/json",
+            response=json.dumps({'error': str(e)}),
+            status=400
+        )
+
+def nse_stock_current_data(symbol):
     try:
         nse = Nse()
-        dt_string = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+
         print("Collecting Current Stock Data","-"*80)
-        print("date and time =", dt_string)
+        print("date and time: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         stock = nse.get_quote(symbol)
-        dt_string = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        print("date and time =", dt_string)
+        print("date and time: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         print("Current Stock Data Collected","-"*80)
+
         stock_price = {
             "date": "{}-{}-{}".format(date.today().day, date.today().month, date.today().year),
             "price": stock['lastPrice'],
