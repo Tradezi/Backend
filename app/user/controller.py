@@ -1,6 +1,7 @@
 from flask import jsonify, Response, make_response, g
 import json
 
+
 from app import db, ts
 from app.user.model import User
 from app.user.auth import Auth
