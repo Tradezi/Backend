@@ -62,6 +62,7 @@ def user_sign_in(data):
     try:
         print("1-"*80)
         user = User.query.filter_by(email=data["email"]).first()
+        print("5-"*80)
         password_verified = user.check_hash_password(data["password"])
         print("2-"*80)
         if password_verified:
