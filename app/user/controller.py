@@ -60,18 +60,22 @@ def user_sign_up(data):
 
 def user_sign_in(data):
     try:
+        print("1-"*80)
         user = User.query.filter_by(email=data["email"]).first()
         password_verified = user.check_hash_password(data["password"])
+        print("2-"*80)
         if password_verified:
+            print("3-"*80)
             data = {
                 "sucess": "signed in successflly"
             }
-            user.increment_sign_in_count()
+            # user.increment_sign_in_count()
             res = make_response(json.dumps(data))
             token = Auth.generate_token(user.id)
             print (token)
             # res.set_cookie(key="session", value=token, domain=".webboard.in", max_age=None, samesite='Strict', secure=True)
             res.set_cookie(key="token", value=token, max_age=None)
+            print("4-"*80)
             return  res, 200, {'Content-Type': 'application/json'}
             # return res
         else:
