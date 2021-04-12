@@ -62,9 +62,12 @@ def user_sign_in(data):
     # try:
     print("1-"*80)
     user = User.query.filter_by(email=data["email"]).first()
+    print(user)
     print("5-"*80)
+    print(user.id)
     password_verified = user.check_hash_password(data["password"])
     print("2-"*80)
+    
     if password_verified:
         print("3-"*80)
         data = {
@@ -73,7 +76,7 @@ def user_sign_in(data):
         # user.increment_sign_in_count()
         res = make_response(json.dumps(data))
         token = Auth.generate_token(user.id)
-        print (token)
+        print(token)
         # res.set_cookie(key="session", value=token, domain=".webboard.in", max_age=None, samesite='Strict', secure=True)
         res.set_cookie(key="token", value=token, max_age=None)
         print("4-"*80)
