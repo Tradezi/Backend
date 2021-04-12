@@ -89,9 +89,6 @@ def reset_password():
 @Auth.auth_required
 def user_details():
     try:
-        print ("=-"*80)
-        print (request.cookies)
-        print("=-"*80)
         if(request.method == 'POST'):
             data = request.json
             if data:

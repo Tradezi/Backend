@@ -65,6 +65,9 @@ class Auth():
                     response=json.dumps({'error': 'Authentication token is not available, please login to get one'}),
                     status=403
                 )
+            print ("=-"*80)
+            print (request.cookies)
+            print("=-"*80)
             token = request.cookies.get('token')
             data = Auth.decode_token(token)
             if data['error']:
