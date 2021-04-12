@@ -26,7 +26,7 @@ class Auth():
             payload,
             ServerConfig.JWT_SECRET_KEY,
             'HS256'
-        ).decode("utf-8")
+        )
         # except Exception as e:
         #     return Response(
         #         mimetype="application/json",
