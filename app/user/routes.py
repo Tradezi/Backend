@@ -50,8 +50,6 @@ def sign_in():
         '''
         data = request.json
         if data:
-            print("0-"*80)
-            print(data)
             return user_sign_in(data)
         else:
             return Response(
