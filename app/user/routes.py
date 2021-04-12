@@ -41,30 +41,30 @@ def sign_up():
 @user.route('/sign_in', methods=["POST"])
 @cross_origin(supports_credentials=True)
 def sign_in():
-    # try:
-    '''
-    data = {
-        "email": "abc@gmail.com",
-        "password": "abcabc"
-    }
-    '''
-    data = request.json
-    if data:
-        print("0-"*80)
-        print(data)
-        return user_sign_in(data)
-    else:
+    try:
+        '''
+        data = {
+            "email": "abc@gmail.com",
+            "password": "abcabc"
+        }
+        '''
+        data = request.json
+        if data:
+            print("0-"*80)
+            print(data)
+            return user_sign_in(data)
+        else:
+            return Response(
+                mimetype="application/json",
+                response=json.dumps({'error': "No Json object recieved"}),
+                status=400
+            )
+    except Exception as e:
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': "No Json object recieved"}),
+            response=json.dumps({'error': str(e)}),
             status=400
         )
-    # except Exception as e:
-    #     return Response(
-    #         mimetype="application/json",
-    #         response=json.dumps({'error': str(e)}),
-    #         status=400
-    #     )
 
 
 @user.route('/sign_out', methods=["POST"])
@@ -89,9 +89,9 @@ def reset_password():
 @Auth.auth_required
 def user_details():
     try:
-        # print ("=-"*80)
-        # print (request.cookies)
-        # print("=-"*80)
+        print ("=-"*80)
+        print (request.cookies)
+        print("=-"*80)
         if(request.method == 'POST'):
             data = request.json
             if data:

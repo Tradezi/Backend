@@ -16,23 +16,23 @@ class Auth():
         """
         Generate Token Method
         """
-        # try:
-        payload = {
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(days=2),
-            'iat': datetime.datetime.utcnow(),
-            'sub': user_id
-        }
-        return jwt.encode(
-            payload,
-            ServerConfig.JWT_SECRET_KEY,
-            'HS256'
-        )
-        # except Exception as e:
-        #     return Response(
-        #         mimetype="application/json",
-        #         response=json.dumps({'error': 'error in generating user token'}),
-        #         status=400
-        #     )
+        try:
+            payload = {
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(days=2),
+                'iat': datetime.datetime.utcnow(),
+                'sub': user_id
+            }
+            return jwt.encode(
+                payload,
+                ServerConfig.JWT_SECRET_KEY,
+                'HS256'
+            )
+        except Exception as e:
+            return Response(
+                mimetype="application/json",
+                response=json.dumps({'error': 'error in generating user token'}),
+                status=400
+            )
 
     @staticmethod
     def decode_token(token):
