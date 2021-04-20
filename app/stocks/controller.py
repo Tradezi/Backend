@@ -117,7 +117,7 @@ def nyse_stock_current_data(symbol):
         print("Collecting Current Stock Data","-"*80)
         print("date and time: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         stock = yf.download(symbol.upper(),date_today,date_today)
-        print(stocks)
+        print(stock)
         print("date and time: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         print("Current Stock Data Collected","-"*80)
 
