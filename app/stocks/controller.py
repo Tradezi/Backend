@@ -120,10 +120,10 @@ def nyse_stock_current_data(symbol):
         print(stock)
         print("date and time: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         print("Current Stock Data Collected","-"*80)
-
+        print("{},   {}".format(stock.Close.values[-1],stock.Close.values))
         stock_price = {
             "date": "{}-{}-{}".format(date.today().day, date.today().month, date.today().year),
-            "price": stock.Close.values[:-1][0]
+            "price": stock.Close.values[-1][0]
         }
         return Response(
             mimetype="application/json",
