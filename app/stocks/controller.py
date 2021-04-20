@@ -123,7 +123,7 @@ def nyse_stock_current_data(symbol):
         print("{},   {}".format(stock.Close.values[-1],stock.Close.values))
         stock_price = {
             "date": "{}-{}-{}".format(date.today().day, date.today().month, date.today().year),
-            "price": stock.Close.values[-1][0]
+            "price": stock.Close.values[-1]
         }
         return Response(
             mimetype="application/json",
