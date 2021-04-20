@@ -1,4 +1,5 @@
 from app import db, bcrypt
+from sqlalchemy import and_
 from datetime import datetime
 
 class Stock(db.Model):
@@ -81,6 +82,11 @@ class Transaction(db.Model):
     # def get_user_via_email(email):
     #     user = User.query.filter_by(email=email).first()
     #     return user
+
+    @staticmethod
+    def get_user_stock_trans(user_id,stock_id):
+        trans = Transaction.query.filter(and_(Transaction.user_id==user_id, Transaction.stock_id==stock_id))
+        return trans
 
     def __repr__(self):
         return "id: {}, user_id: {}, stock_id: {}, stock_price: {}, num: {},".format(self.id, \

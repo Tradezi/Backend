@@ -1,13 +1,20 @@
 import json
 import pandas as pd
-from sqlalchemy import and_
-from nsetools import Nse
-from datetime import date, datetime
-from nsepy import get_history
 import yfinance as yf
+from nsetools import Nse
+from sqlalchemy import and_
+from nsepy import get_history
+from datetime import date, datetime
 from flask import request, Response, make_response, jsonify
 
 from app.stocks.model import Stock, Transaction
+from app.user.model import User
+from app import db
+
+def get_current_stock_price(symbol):
+    date_today = "{}-{}-{}".format(date.today().year, date.today().month, date.today().day)
+    stock = yf.download(symbol.upper(),date_today,date_today)
+    return stock.Close.values[:-1][0]
 
 def nse_stock_history_data(symbol,years):
     try:
@@ -110,6 +117,7 @@ def nyse_stock_current_data(symbol):
         print("Collecting Current Stock Data","-"*80)
         print("date and time: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         stock = yf.download(symbol.upper(),date_today,date_today)
+        print(stocks)
         print("date and time: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         print("Current Stock Data Collected","-"*80)
 
@@ -133,43 +141,57 @@ def nyse_stock_current_data(symbol):
 def transaction(stock_id,stock_price,num_of_stocks,buy):
     user_id=1
     try:
-        trans = Transaction.query.filter(and_(Transaction.user_id==user_id, Transaction.stock_id==stock_id)).first()
-        price = stock_price*num_of_stocks
+        user = User.query.get(user_id)
         if(buy):
-            if not trans:
-                new_trans = Transaction(
-                    user_id=user_id,
-                    stock_id=stock_id,
-                    stock_price=price,
-                    num_of_stocks=num_of_stocks
-                )
-                new_trans.save()
-            else:
-                price += trans.stock_price
-                num_of_stocks += trans.num_of_stocks
-                trans.num_of_stocks = num_of_stocks
-                trans.stock_price = price
-                trans.commit()
-
-                # ADD: Subract user funds
+            if((num_of_stocks*stock_price)>user.funds):
+                return Response(
+                    mimetype="application/json",
+                    response=json.dumps({'error': "Not enough funds to buy stocks"}),
+                    status=403
+                )           
+            funds = user.funds - (num_of_stocks*stock_price)
+            user.funds = funds
+            user.commit()
+            new_transaction = Transaction(
+                user_id=user_id,
+                stock_id=stock_id,
+                stock_price=stock_price,
+                num_of_stocks=num_of_stocks
+            )
+            new_transaction.save()
         else:
-            if(num_of_stocks == trans.num_of_stocks):
-                # ADD: add user funds
-                db.session.delete(trans)
-                db.session.commit()
-            elif(num_of_stocks < trans.num_of_stocks):
-                price = trans.stock_price - price
-                num_of_stocks = trans.num_of_stocks - num_of_stocks
-                trans.num_of_stocks = num_of_stocks
-                trans.stock_price = price
-                trans.commit()
+            trans = Transaction.get_user_stock_trans(user_id,stock_id)
+            num_stocks_holded = 0
+            for tran in trans:
+                # print(tran)
+                num_stocks_holded += tran.num_of_stocks
+            if(num_of_stocks>num_stocks_holded):
+                return Response(
+                    mimetype="application/json",
+                    response=json.dumps({'error': "Not enough stocks to sell"}),
+                    status=403
+                )
+            funds = user.funds + (num_of_stocks*stock_price)
+            user.funds = funds
+            user.commit()
+            # print("%"*80)
+            # print(num_of_stocks)
+            for tran in trans:
+                # print("%"*80)
+                # print(tran.id)
+                if(tran.num_of_stocks <= num_of_stocks):
+                    num_of_stocks -= tran.num_of_stocks
+                    db.session.delete(tran)
+                    db.session.commit()
+                else:
+                    num = tran.num_of_stocks - num_of_stocks
+                    # print("^^"*80)
+                    # print(tran.num_of_stocks)
+                    # print(num_of_stocks)
+                    # print(num)
+                    tran.num_of_stocks = num
+                    tran.commit()
 
-
-        return Response(
-            mimetype="application/json",
-            response=json.dumps({'success': "Transaction successful"}),
-            status=201
-        )
     except Exception as e:
         return Response(
             mimetype="application/json",

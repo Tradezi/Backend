@@ -123,6 +123,7 @@ def get_user_details():
             "username": user.username,
             "name": user.name,
             "email": user.email,
+            "funds": user.funds,
             "sign_in_count": user.sign_in_count,
             "created_on": user.get_created_on()
         }

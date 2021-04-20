@@ -9,6 +9,7 @@ class User(db.Model):
     email = db.Column(db.String)
     password = db.Column(db.String) # hashed
     email_verified = db.Column(db.Boolean, default=False)
+    funds = db.Column(db.Integer, default=1000)
 
     sign_in_count = db.Column(db.Integer, default=0)
 
