@@ -1,4 +1,6 @@
 import os
+import logging
+import logging.config
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
@@ -9,7 +11,11 @@ from app.server_config import ServerConfig
 # Flask app
 app = Flask(__name__)
 app.config.from_object(ServerConfig)
-# firebase = FirebaseAdmin(app)
+
+# Logging
+logging.config.fileConfig(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'logging.config'))
+# create logger
+logger = logging.getLogger('debugLogger')
 
 '''
 refer to - https://itnext.io/how-and-why-have-a-properly-configuration-handling-file-using-flask-1fd925c88f4c

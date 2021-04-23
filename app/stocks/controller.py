@@ -9,12 +9,17 @@ from flask import request, Response, make_response, jsonify
 
 from app.stocks.model import Stock, Transaction
 from app.user.model import User
-from app import db
+from app import db, logger
 
-def get_current_stock_price(symbol):
+def get_current_stock_price(stock_details):
+    symbol = stock_details.symbol
     date_today = "{}-{}-{}".format(date.today().year, date.today().month, date.today().day)
     stock = yf.download(symbol.upper(),date_today,date_today)
-    return stock.Close.values[:-1][0]
+    if(stock.Close.values.shape[0]==0):
+        db.session.delete(stock_details)
+        db.session.commit()
+        return -1
+    return stock.Close.values[-1]
 
 def nse_stock_history_data(symbol,years):
     try:
@@ -42,6 +47,7 @@ def nse_stock_history_data(symbol,years):
             status=200
         )
     except Exception as e:
+        logger.error("Contoller: "+str(e))
         print("Error: {}".format(e))
         return Response(
             mimetype="application/json",
@@ -77,7 +83,7 @@ def nyse_stock_history_data(symbol,years):
             status=200
         )
     except Exception as e:
-        print("Error: {}".format(e))
+        logger.error("Contoller: "+str(e))
         return Response(
             mimetype="application/json",
             response=json.dumps({'error': str(e)}),
@@ -104,7 +110,7 @@ def nse_stock_current_data(symbol):
             status=200
         )
     except Exception as e:
-        print("Error: {}".format(e))
+        logger.error("Contoller: "+str(e))
         return Response(
             mimetype="application/json",
             response=json.dumps({'error': str(e)}),
@@ -117,10 +123,8 @@ def nyse_stock_current_data(symbol):
         print("Collecting Current Stock Data","-"*80)
         print("date and time: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         stock = yf.download(symbol.upper(),date_today,date_today)
-        print(stock)
         print("date and time: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         print("Current Stock Data Collected","-"*80)
-        print("{},   {}".format(stock.Close.values[-1],stock.Close.values))
         stock_price = {
             "date": "{}-{}-{}".format(date.today().day, date.today().month, date.today().year),
             "price": stock.Close.values[-1]
@@ -131,7 +135,7 @@ def nyse_stock_current_data(symbol):
             status=200
         )
     except Exception as e:
-        print("Error: {}".format(e))
+        logger.error("Contoller: "+str(e))
         return Response(
             mimetype="application/json",
             response=json.dumps({'error': str(e)}),
@@ -193,8 +197,47 @@ def transaction(stock_id,stock_price,num_of_stocks,buy):
                     tran.commit()
 
     except Exception as e:
+        logger.error("Contoller: "+str(e))
         return Response(
             mimetype="application/json",
             response=json.dumps({'error': str(e)}),
             status=400
         )
+
+
+
+def get_current_price_of_all_stocks(page):
+    try:
+        stocks = Stock.query.all()
+        data = []
+        i = page*20
+        n=20
+        while(n and i<len(stocks)):
+            stock = stocks[i]
+            symbol = stock.symbol
+            price = get_current_stock_price(stock)
+            if(price==-1):
+                i+=1
+                continue
+            data.append(
+                {
+                    'symbol': symbol,
+                    'company': stock.company_name,
+                    'price': price
+                }
+            )
+            i+=1
+            n-=1
+        return Response(
+            mimetype="application/json",
+            response=json.dumps(data),
+            status=200
+        )
+    except Exception as e:
+        logger.error("Contoller: "+str(e))
+        return Response(
+            mimetype="application/json",
+            response=json.dumps({'error': str(e)}),
+            status=400
+        )    
+        

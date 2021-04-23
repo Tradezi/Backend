@@ -4,8 +4,11 @@ from nsepy import get_history
 from flask_cors import cross_origin
 from flask import Blueprint, request, Response, make_response, jsonify
 # from app import firebase
+
+from app import logger
 from app.user.auth import Auth
-from app.stocks.controller import nse_stock_history_data, nse_stock_current_data, nyse_stock_history_data, nyse_stock_current_data, transaction
+from app.stocks.controller import nse_stock_history_data, nse_stock_current_data, nyse_stock_history_data, nyse_stock_current_data, transaction, \
+    get_current_price_of_all_stocks
 
 
 stocks = Blueprint('stocks', __name__)
@@ -16,11 +19,12 @@ stocks = Blueprint('stocks', __name__)
 # @Auth.auth_required   /
 def stock_history():
     try:
-        print("=*"*80)
         symbol = request.args.get('symbol')
-        years = int(request.args.get('years'))  
+        years = int(request.args.get('years'))
+        logger.info("/api/stocks/history => stock history of symbol: {}, years: {}".format(symbol,years))  
         return nyse_stock_history_data(symbol,years)
     except Exception as e:
+        logger.error("Route: "+str(e))
         return Response(
             mimetype="application/json",
             response=json.dumps({'error': str(e)}),
@@ -34,8 +38,10 @@ def stock_history():
 def stock_current():
     try:
         symbol = request.args.get('symbol')
+        logger.info("/api/stocks/current => current stock price of symbol: {}".format(symbol)) 
         return nyse_stock_current_data(symbol)
     except Exception as e:
+        logger.error("Route: "+str(e))
         return Response(
             mimetype="application/json",
             response=json.dumps({'error': str(e)}),
@@ -52,6 +58,9 @@ def stock_transaction():
         stock_price = data['stockPrice']
         num_of_stocks = data['numOfStocks']
         buy = data['buy']
+        logger.info("/api/stocks/transaction => stock transaction stock_id: {}, stock_price: {}, num: {}, buy: {}".format(
+            stock_id, stock_price, num_of_stocks, buy
+        )) 
         transaction(stock_id,stock_price,num_of_stocks,buy)
         return Response(
             mimetype="application/json",
@@ -59,8 +68,24 @@ def stock_transaction():
             status=201
         )
     except Exception as e:
+        logger.error("Route: "+str(e))
         return Response(
             mimetype="application/json",
             response=json.dumps({'error': str(e)}),
             status=400
         )
+
+@stocks.route("/all", methods=["GET"])
+@cross_origin(supports_credentials=True)
+def all_stock_current_prices():
+    try:
+        logger.info("/api/stocks/all => all stock data")
+        page = int(request.args.get('page')) 
+        return get_current_price_of_all_stocks(page)
+    except Exception as e:
+        logger.error("Route: "+str(e))
+        return Response(
+            mimetype="application/json",
+            response=json.dumps({'error': str(e)}),
+            status=400
+        ) 

@@ -1,0 +1,39 @@
+2021-04-21 19:16:59,312 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-21 19:17:45,515 - debugLogger - INFO - /api/stocks/history => stock history of symbol: aapl, years: 1
+2021-04-21 19:17:55,841 - debugLogger - INFO - /api/stocks/history => stock history of symbol: gme, years: 1
+2021-04-21 19:18:01,158 - debugLogger - INFO - /api/stocks/history => stock history of symbol: c, years: 1
+2021-04-21 19:18:16,282 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-21 21:23:20,324 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-21 21:23:24,323 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-21 21:42:44,651 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-21 21:43:59,370 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-21 21:43:59,525 - debugLogger - ERROR - Contoller: name 'page' is not defined
+2021-04-21 21:44:18,885 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-21 21:44:19,056 - debugLogger - ERROR - Contoller: can only concatenate str (not "int") to str
+2021-04-21 21:44:39,180 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-21 21:44:42,238 - debugLogger - ERROR - Contoller: index -1 is out of bounds for axis 0 with size 0
+2021-04-21 21:45:39,495 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-21 21:45:42,542 - debugLogger - ERROR - Contoller: index -1 is out of bounds for axis 0 with size 0
+2021-04-21 21:46:21,990 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-21 21:46:24,919 - debugLogger - ERROR - Contoller: index -1 is out of bounds for axis 0 with size 0
+2021-04-21 21:46:58,268 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-21 21:47:01,311 - debugLogger - ERROR - Contoller: index -1 is out of bounds for axis 0 with size 0
+2021-04-23 13:31:54,720 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-23 13:31:54,721 - debugLogger - ERROR - Route: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+2021-04-23 13:32:06,124 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-23 13:32:09,016 - debugLogger - ERROR - Contoller: index -1 is out of bounds for axis 0 with size 0
+2021-04-23 13:33:59,486 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-23 13:34:04,375 - debugLogger - ERROR - Contoller: index -1 is out of bounds for axis 0 with size 0
+2021-04-23 13:44:33,101 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-23 14:19:10,239 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-23 14:19:21,431 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-23 14:19:32,892 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-23 14:19:46,311 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-23 14:19:59,101 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-23 14:20:12,231 - debugLogger - ERROR - Contoller: Class 'pandas.core.frame.DataFrame' is not mapped
+2021-04-23 14:23:40,177 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-23 14:23:47,941 - debugLogger - ERROR - Contoller: Class 'pandas.core.frame.DataFrame' is not mapped
+2021-04-23 14:25:01,473 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-23 14:25:13,884 - debugLogger - ERROR - Contoller: Class 'pandas.core.frame.DataFrame' is not mapped
+2021-04-23 14:26:56,468 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-23 14:27:32,509 - debugLogger - INFO - /api/stocks/all => all stock data

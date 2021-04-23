@@ -65,6 +65,12 @@ def user_sign_in(data):
         # print(user)
         # print("5-"*80)
         # print(user.id)
+        if not user:
+            return Response(
+                mimetype="application/json",
+                response=json.dumps({'error': 'User Does not exsists'}),
+                status=403
+            )
         password_verified = user.check_hash_password(data["password"])
         # print("2-"*80)
         
