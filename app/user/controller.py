@@ -87,7 +87,7 @@ def user_sign_in(data):
             token = Auth.generate_token(user.id)
             print(token)
             # res.set_cookie(key="session", value=token, domain=".webboard.in", max_age=None, samesite='Strict', secure=True)
-            res.set_cookie(key="token", domain="tradezi-backend.herokuapp.com", value=token, max_age=None, samesite='Strict', secure=True)
+            res.set_cookie(key="token", domain="tradezi-backend.herokuapp.com", value=token, max_age=None)
             return  res, 200, {'Content-Type': 'application/json'}
             # return res
         else:
