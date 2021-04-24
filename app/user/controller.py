@@ -87,7 +87,7 @@ def user_sign_in(data):
             token = Auth.generate_token(user.id)
             print(token)
             # res.set_cookie(key="session", value=token, domain=".webboard.in", max_age=None, samesite='Strict', secure=True)
-            res.set_cookie(key="token", value=token, max_age=None)
+            res.set_cookie(key="token", domain="tradezi-backend.herokuapp.com", value=token, max_age=None, samesite='Strict', secure=True)
             return  res, 200, {'Content-Type': 'application/json'}
             # return res
         else:
@@ -130,7 +130,7 @@ def user_email_verification(token):
 
 @Auth.auth_required
 def get_user_details():
-    user_id=g.user['id']
+    user_id = g.user['id']
     try:
         user = User.query.get(user_id)
         data = {
@@ -155,8 +155,9 @@ def get_user_details():
             status=400
         ) 
 
+@Auth.auth_required
 def get_user_stock_detials():
-    user_id = 1
+    user_id = g.user['id']
     try:
         trans = Transaction.query.filter_by(user_id=user_id)
         stocks_purchased = {}
