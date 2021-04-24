@@ -1,3 +1,4 @@
+import sys
 import json
 import pandas as pd
 import yfinance as yf
@@ -9,6 +10,7 @@ from flask import request, Response, make_response, jsonify
 
 from app.stocks.model import Stock, Transaction
 from app.user.model import User
+from app.Utils import get_error_msg
 from app import db, logger
 
 def get_current_stock_price(stock_details):
@@ -47,13 +49,13 @@ def nse_stock_history_data(symbol,years):
             status=200
         )
     except Exception as e:
-        logger.error("Contoller: "+str(e))
-        print("Error: {}".format(e))
+        error_msg = get_error_msg(e)
+        logger.error(error_msg)
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': str(e)}),
+            response=json.dumps({'error': error_msg}),
             status=400
-        )
+        ) 
 
 
 def nyse_stock_history_data(symbol,years):
@@ -72,7 +74,10 @@ def nyse_stock_history_data(symbol,years):
         for i in range(len(history.Close.values)):
             stock_price = {
                 "date":  pd.to_datetime(str(history.Close.index.values[i])).strftime("%m-%d-%Y"),
-                "price": history.Close.values[i],
+                "close": history.Close.values[i],
+                "open": history.Open.values[i],
+                "high": history.High.values[i],
+                "low": history.Low.values[i]
             }
             data.append(stock_price)
         del history
@@ -83,12 +88,13 @@ def nyse_stock_history_data(symbol,years):
             status=200
         )
     except Exception as e:
-        logger.error("Contoller: "+str(e))
+        error_msg = get_error_msg(e)
+        logger.error(error_msg)
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': str(e)}),
+            response=json.dumps({'error': error_msg}),
             status=400
-        )
+        ) 
 
 def nse_stock_current_data(symbol):
     try:
@@ -110,12 +116,13 @@ def nse_stock_current_data(symbol):
             status=200
         )
     except Exception as e:
-        logger.error("Contoller: "+str(e))
+        error_msg = get_error_msg(e)
+        logger.error(error_msg)
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': str(e)}),
+            response=json.dumps({'error': error_msg}),
             status=400
-        )
+        ) 
 
 def nyse_stock_current_data(symbol):
     try:
@@ -135,12 +142,13 @@ def nyse_stock_current_data(symbol):
             status=200
         )
     except Exception as e:
-        logger.error("Contoller: "+str(e))
+        error_msg = get_error_msg(e)
+        logger.error(error_msg)
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': str(e)}),
+            response=json.dumps({'error': error_msg}),
             status=400
-        )
+        ) 
 
 def transaction(stock_id,stock_price,num_of_stocks,buy):
     user_id=1
@@ -195,14 +203,20 @@ def transaction(stock_id,stock_price,num_of_stocks,buy):
                     # print(num)
                     tran.num_of_stocks = num
                     tran.commit()
-
-    except Exception as e:
-        logger.error("Contoller: "+str(e))
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': str(e)}),
-            status=400
+            response=json.dumps({'success': "Transaction successfully"}),
+            status=201
         )
+
+    except Exception as e:
+        error_msg = get_error_msg(e)
+        logger.error(error_msg)
+        return Response(
+            mimetype="application/json",
+            response=json.dumps({'error': error_msg}),
+            status=400
+        ) 
 
 
 
@@ -234,10 +248,11 @@ def get_current_price_of_all_stocks(page):
             status=200
         )
     except Exception as e:
-        logger.error("Contoller: "+str(e))
+        error_msg = get_error_msg(e)
+        logger.error(error_msg)
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': str(e)}),
+            response=json.dumps({'error': error_msg}),
             status=400
-        )    
+        )     
         

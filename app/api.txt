@@ -1,0 +1,45 @@
+%%%%%%%%%%% USER %%%%%%%%%%%%%%%%
+
+1)
+route: POST api/user/sign_up
+data:   {
+            "username": "abc",
+            "name": "abc abc",
+            "email": "abc@gmail.com",
+            "password" : "abcabc"
+        }
+
+2) 
+route: POST api/user/sign_in
+daat:   {
+            "email": "abc@gmail.com",
+            "password": "abcabc"
+        }
+
+3)
+route: GET api/user/details
+
+4) 
+route: GET api/user/stock_details
+
+
+%%%%%%%%%%%%%%% STOCK %%%%%%%%%%%%%%
+
+1)
+route: GET api/stocks/history?symbol=<>&years=<>
+
+
+2)
+route: GET api/stocks/current?symbol=<>
+
+3)
+route: POST api/stocks/transaction
+data:   {
+            'stockId': 1,
+            'stockPrice': 10,
+            'numofStocks': 5,
+            'buy': 1
+        }
+
+4)
+route: GET api/stocks/all?page=1

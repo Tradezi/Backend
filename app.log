@@ -37,3 +37,39 @@
 2021-04-23 14:25:13,884 - debugLogger - ERROR - Contoller: Class 'pandas.core.frame.DataFrame' is not mapped
 2021-04-23 14:26:56,468 - debugLogger - INFO - /api/stocks/all => all stock data
 2021-04-23 14:27:32,509 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-24 09:03:39,782 - debugLogger - ERROR - Route: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+2021-04-24 09:04:07,433 - debugLogger - ERROR - Route: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+2021-04-24 09:04:11,262 - debugLogger - ERROR - Route: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+2021-04-24 09:04:12,969 - debugLogger - ERROR - Route: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+2021-04-24 09:04:23,502 - debugLogger - ERROR - Route: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+2021-04-24 09:04:45,250 - debugLogger - ERROR - Route: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+2021-04-24 09:09:31,963 - debugLogger - ERROR - routes.py, line 25: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+2021-04-24 09:12:02,378 - debugLogger - INFO - /api/stocks/history => stock history of symbol: aapl, years: 1
+2021-04-24 09:12:23,606 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-04-24 09:12:30,192 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-24 09:12:30,192 - debugLogger - ERROR - routes.py, line 88: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+2021-04-24 09:12:36,001 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-24 09:12:39,997 - debugLogger - INFO - /api/stocks/all => all stock data
+2021-04-24 10:03:09,026 - debugLogger - ERROR - routes.py, line 25: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+2021-04-24 10:05:04,984 - debugLogger - ERROR - app/stocks/routes.py, line 25: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+2021-04-24 10:05:36,258 - debugLogger - ERROR - path - app/stocks/routes.py, line - 25: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+2021-04-24 10:05:43,898 - debugLogger - ERROR - path app/stocks/routes.py, line 25: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+2021-04-24 11:21:39,535 - debugLogger - ERROR - path app/user/routes.py, line 120: name 'get_user_stock_details' is not defined
+2021-04-24 11:27:04,133 - debugLogger - INFO - /api/stocks/transaction => stock transaction stock_id: 1, stock_price: 10, num: 15, buy: 1
+2021-04-24 11:29:32,188 - debugLogger - ERROR - path app/user/controller.py, line 170: type object 'Stock' has no attribute 'guery'
+2021-04-24 11:30:18,510 - debugLogger - INFO - /api/stocks/transaction => stock transaction stock_id: 10, stock_price: 10, num: 100, buy: 1
+2021-04-24 11:30:34,341 - debugLogger - INFO - /api/stocks/transaction => stock transaction stock_id: 10, stock_price: 10, num: 100, buy: 1
+2021-04-24 11:31:09,884 - debugLogger - INFO - /api/stocks/transaction => stock transaction stock_id: 11, stock_price: 10, num: 100, buy: 1
+2021-04-24 11:31:55,702 - debugLogger - INFO - /api/stocks/transaction => stock transaction stock_id: 1, stock_price: 10, num: 100, buy: 1
+2021-04-24 11:32:29,528 - debugLogger - INFO - /api/stocks/transaction => stock transaction stock_id: 1, stock_price: 10, num: 100, buy: 1
+2021-04-24 11:33:47,492 - debugLogger - INFO - /api/stocks/transaction => stock transaction stock_id: 1, stock_price: 10, num: 100, buy: 1
+2021-04-24 11:34:21,982 - debugLogger - INFO - /api/stocks/transaction => stock transaction stock_id: 1, stock_price: 10, num: 100, buy: 1
+2021-04-24 11:34:53,049 - debugLogger - INFO - /api/stocks/transaction => stock transaction stock_id: 1, stock_price: 10, num: 100, buy: 1
+2021-04-24 11:35:38,659 - debugLogger - INFO - /api/stocks/transaction => stock transaction stock_id: 1, stock_price: 10, num: 50, buy: 1
+2021-04-24 11:36:39,707 - debugLogger - INFO - /api/stocks/transaction => stock transaction stock_id: 1, stock_price: 1000, num: 50, buy: 0
+2021-04-24 11:36:50,048 - debugLogger - INFO - /api/stocks/transaction => stock transaction stock_id: 1, stock_price: 1000, num: 19, buy: 0
+2021-04-24 11:37:13,851 - debugLogger - INFO - /api/stocks/transaction => stock transaction stock_id: 10, stock_price: 100, num: 10, buy: 1
+2021-04-24 11:37:24,982 - debugLogger - INFO - /api/stocks/transaction => stock transaction stock_id: 100, stock_price: 20, num: 40, buy: 1
+2021-04-24 17:34:10,987 - debugLogger - INFO - /api/stocks/history => stock history of symbol: aapl, years: 1
+2021-04-24 17:34:51,707 - debugLogger - INFO - /api/stocks/history => stock history of symbol: aapl, years: 1
+2021-04-24 17:34:53,240 - debugLogger - INFO - /api/stocks/history => stock history of symbol: aapl, years: 1

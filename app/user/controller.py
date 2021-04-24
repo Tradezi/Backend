@@ -1,10 +1,12 @@
-from flask import jsonify, Response, make_response, g
 import json
+from flask import jsonify, Response, make_response, g
 
-
-from app import db, ts
+from app import db, ts, logger
 from app.user.model import User
 from app.user.auth import Auth
+from app.stocks.model import Stock, Transaction
+from app.stocks.controller import get_current_stock_price
+from app.Utils import get_error_msg
 
 def user_sign_up(data):
     try:        
@@ -52,11 +54,13 @@ def user_sign_up(data):
             status=201
         )
     except Exception as e:
+        error_msg = get_error_msg(e)
+        logger.error(error_msg)
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': str(e)}),
+            response=json.dumps({'error': error_msg}),
             status=400
-        )
+        ) 
 
 def user_sign_in(data):
     try:
@@ -93,11 +97,13 @@ def user_sign_in(data):
                 status=403
             ) 
     except Exception as e:
+        error_msg = get_error_msg(e)
+        logger.error(error_msg)
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': str(e)}),
+            response=json.dumps({'error': error_msg}),
             status=400
-        )
+        ) 
 
 def user_email_verification(token):
     try:
@@ -114,11 +120,13 @@ def user_email_verification(token):
                 status=404
             )
     except Exception as e:
+        error_msg = get_error_msg(e)
+        logger.error(error_msg)
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': str(e)}),
+            response=json.dumps({'error': error_msg}),
             status=400
-        )
+        ) 
 
 @Auth.auth_required
 def get_user_details():
@@ -139,11 +147,52 @@ def get_user_details():
             status=200
         )
     except Exception as e:
+        error_msg = get_error_msg(e)
+        logger.error(error_msg)
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': str(e)}),
+            response=json.dumps({'error': error_msg}),
             status=400
+        ) 
+
+def get_user_stock_detials():
+    user_id = 1
+    try:
+        trans = Transaction.query.filter_by(user_id=user_id)
+        stocks_purchased = {}
+        for tran in trans:
+            stock = stocks_purchased.get(tran.stock_id, {})
+            stock['cost'] = stock.get('cost',0) + (tran.num_of_stocks*tran.stock_price)
+            stock['num'] = stock.get('num',0) + tran.num_of_stocks
+            stocks_purchased[tran.stock_id] = stock
+        data = []
+        for stock_id, val in stocks_purchased.items():
+            stock = Stock.query.get(stock_id)
+            price = get_current_stock_price(stock)
+            profit = price*val['num'] - val['cost']
+            data.append(
+                {
+                    'symbol': stock.symbol,
+                    'company': stock.company_name,
+                    'price': price,
+                    'num_purchased': val['num'],
+                    'profit': profit
+
+                }
+            )
+        return Response(
+            mimetype="application/json",
+            response=json.dumps(data),
+            status=200
         )
+    except Exception as e:
+        error_msg = get_error_msg(e)
+        logger.error(error_msg)
+        return Response(
+            mimetype="application/json",
+            response=json.dumps({'error': error_msg}),
+            status=400
+        ) 
 
 def update_user_details(data):
     pass

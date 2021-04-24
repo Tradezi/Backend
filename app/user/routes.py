@@ -3,10 +3,11 @@ from flask_cors import cross_origin
 import json
 
 
-from app import db
+from app import db, logger
+from app.Utils import get_error_msg
 from app.user.auth import Auth
 from app.user.controller import user_sign_up, user_sign_in, user_email_verification, update_user_details, \
-    get_user_details
+    get_user_details, get_user_stock_detials
 
 user = Blueprint('user', __name__)
 
@@ -32,11 +33,13 @@ def sign_up():
                 status=400
             ) 
     except Exception as e:
+        error_msg = get_error_msg(e)
+        logger.error(error_msg)
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': str(e)}),
+            response=json.dumps({'error': error_msg}),
             status=400
-        )
+        ) 
 
 @user.route('/sign_in', methods=["POST"])
 @cross_origin(supports_credentials=True)
@@ -58,11 +61,13 @@ def sign_in():
                 status=400
             )
     except Exception as e:
+        error_msg = get_error_msg(e)
+        logger.error(error_msg)
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': str(e)}),
+            response=json.dumps({'error': error_msg}),
             status=400
-        )
+        ) 
 
 
 @user.route('/sign_out', methods=["POST"])
@@ -99,11 +104,28 @@ def user_details():
                 )
         return get_user_details()
     except Exception as e:
+        error_msg = get_error_msg(e)
+        logger.error(error_msg)
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': str(e)}),
+            response=json.dumps({'error': error_msg}),
             status=400
-        )
+        ) 
+
+@user.route('/stock_details', methods=["GET"])
+@cross_origin(supports_credentials=True)
+@Auth.auth_required
+def user_stock_details():
+    try:
+        return get_user_stock_detials()
+    except Exception as e:
+        error_msg = get_error_msg(e)
+        logger.error(error_msg)
+        return Response(
+            mimetype="application/json",
+            response=json.dumps({'error': error_msg}),
+            status=400
+        ) 
     
 
 @user.route('/email_verification/<token>', methods=["GET"])
@@ -111,11 +133,13 @@ def email_verification(token):
     try:
         return user_email_verification(token)
     except Exception as e:
+        error_msg = get_error_msg(e)
+        logger.error(error_msg)
         return Response(
             mimetype="application/json",
-            response=json.dumps({'error': str(e)}),
+            response=json.dumps({'error': error_msg}),
             status=400
-        )
+        ) 
 
 
 
