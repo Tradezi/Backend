@@ -87,7 +87,7 @@ def user_sign_in(data):
             token = Auth.generate_token(user.id)
             print(token)
             # res.set_cookie(key="session", value=token, domain=".webboard.in", max_age=None, samesite='Strict', secure=True)
-            res.set_cookie(key="token", domain="1847a123a2b6.ngrok.io", value=token, max_age=None, samesite=None, secure=True)
+            res.set_cookie(key="token", domain=".tradezi.co.in", value=token, max_age=None, samesite='Strict', secure=True)
             return  res, 200, {'Content-Type': 'application/json'}
             # return res
         else:
