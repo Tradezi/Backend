@@ -73,3 +73,7 @@
 2021-04-24 17:34:10,987 - debugLogger - INFO - /api/stocks/history => stock history of symbol: aapl, years: 1
 2021-04-24 17:34:51,707 - debugLogger - INFO - /api/stocks/history => stock history of symbol: aapl, years: 1
 2021-04-24 17:34:53,240 - debugLogger - INFO - /api/stocks/history => stock history of symbol: aapl, years: 1
+2021-04-26 09:06:41,610 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-04-26 09:06:41,846 - debugLogger - ERROR - path app/stocks/controller.py, line 140: index -1 is out of bounds for axis 0 with size 0
+2021-04-26 09:07:48,137 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-04-26 10:11:28,688 - debugLogger - INFO - /api/stocks/all => all stock data

@@ -16,7 +16,10 @@ from app import db, logger
 def get_current_stock_price(stock_details):
     symbol = stock_details.symbol
     date_today = "{}-{}-{}".format(date.today().year, date.today().month, date.today().day)
-    stock = yf.download(symbol.upper(),date_today,date_today)
+    date_last_month = "{}-{}-{}".format(date.today().year, date.today().month-1, date.today().day)
+    if(date.today().month==1):
+        date_last_month = "{}-{}-{}".format(date.today().year-1, 12, date.today().day)
+    stock = yf.download(symbol.upper(),date_last_month,date_today)
     if(stock.Close.values.shape[0]==0):
         db.session.delete(stock_details)
         db.session.commit()
@@ -127,9 +130,12 @@ def nse_stock_current_data(symbol):
 def nyse_stock_current_data(symbol):
     try:
         date_today = "{}-{}-{}".format(date.today().year, date.today().month, date.today().day)
+        date_last_month = "{}-{}-{}".format(date.today().year, date.today().month-1, date.today().day)
+        if(date.today().month==1):
+            date_last_month = "{}-{}-{}".format(date.today().year-1, 12, date.today().day)
         print("Collecting Current Stock Data","-"*80)
         print("date and time: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
-        stock = yf.download(symbol.upper(),date_today,date_today)
+        stock = yf.download(symbol.upper(),date_last_month,date_today)
         print("date and time: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         print("Current Stock Data Collected","-"*80)
         stock_price = {
