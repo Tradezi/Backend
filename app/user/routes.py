@@ -89,7 +89,7 @@ def reset_password():
 
 @user.route('/details', methods=["GET", "POST"])
 @cross_origin(supports_credentials=True)
-@Auth.auth_required
+# @Auth.auth_required
 def user_details():
     try:
         if(request.method == 'POST'):
@@ -114,7 +114,7 @@ def user_details():
 
 @user.route('/stock_details', methods=["GET"])
 @cross_origin(supports_credentials=True)
-@Auth.auth_required
+# @Auth.auth_required
 def user_stock_details():
     try:
         return get_user_stock_detials()

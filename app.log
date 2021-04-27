@@ -1,0 +1,24 @@
+2021-04-27 11:44:54,475 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-04-27 11:45:46,465 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-04-27 11:46:18,421 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-04-27 11:46:19,681 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-04-27 11:47:28,465 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-04-27 11:47:28,804 - debugLogger - ERROR - path app/stocks/controller.py, line 145: 'BaseQuery' object has no attribute 'company_name'
+2021-04-27 11:47:44,317 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-04-27 11:47:44,542 - debugLogger - ERROR - path app/stocks/controller.py, line 145: 'BaseQuery' object has no attribute 'company_name'
+2021-04-27 11:47:46,198 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-04-27 11:47:46,395 - debugLogger - ERROR - path app/stocks/controller.py, line 145: 'BaseQuery' object has no attribute 'company_name'
+2021-04-27 11:47:58,221 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-04-27 11:47:58,501 - debugLogger - ERROR - path app/stocks/controller.py, line 146: 'BaseQuery' object has no attribute 'company_name'
+2021-04-27 11:48:37,788 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-04-27 11:48:38,142 - debugLogger - ERROR - path app/stocks/controller.py, line 146: 'NoneType' object has no attribute 'company_name'
+2021-04-27 11:48:54,922 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-04-27 11:50:32,208 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-04-27 11:50:32,228 - debugLogger - ERROR - path app/stocks/controller.py, line 141: 'str' object has no attribute 'symbol'
+2021-04-27 11:50:57,295 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-04-27 11:50:57,312 - debugLogger - ERROR - path app/stocks/controller.py, line 139: name 'company' is not defined
+2021-04-27 11:51:05,378 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-04-27 11:51:05,398 - debugLogger - ERROR - path app/stocks/controller.py, line 139: name 'company' is not defined
+2021-04-27 11:51:15,419 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-04-27 11:51:15,422 - debugLogger - ERROR - path app/stocks/controller.py, line 139: name 'company' is not defined
+2021-04-27 11:51:24,816 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl

@@ -166,12 +166,21 @@ def get_user_stock_detials():
             stock['cost'] = stock.get('cost',0) + (tran.num_of_stocks*tran.stock_price)
             stock['num'] = stock.get('num',0) + tran.num_of_stocks
             stocks_purchased[tran.stock_id] = stock
-        data = []
+        data = {
+            "stocks": [],
+            "invested": 0,
+            "current": 0,
+            "balance": 0
+        }
+        invested = 0
+        current = 0
         for stock_id, val in stocks_purchased.items():
             stock = Stock.query.get(stock_id)
             price = get_current_stock_price(stock)
+            invested += val['cost']
+            current += price*val['num']
             profit = price*val['num'] - val['cost']
-            data.append(
+            data["stocks"].append(
                 {
                     'symbol': stock.symbol,
                     'company': stock.company_name,
@@ -181,6 +190,9 @@ def get_user_stock_detials():
 
                 }
             )
+        data["invested"] = invested
+        data["current"] = current
+        data["balance"] = current-invested
         return Response(
             mimetype="application/json",
             response=json.dumps(data),

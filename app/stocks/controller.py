@@ -129,18 +129,22 @@ def nse_stock_current_data(symbol):
 
 def nyse_stock_current_data(symbol):
     try:
-        date_today = "{}-{}-{}".format(date.today().year, date.today().month, date.today().day)
-        date_last_month = "{}-{}-{}".format(date.today().year, date.today().month-1, date.today().day)
-        if(date.today().month==1):
-            date_last_month = "{}-{}-{}".format(date.today().year-1, 12, date.today().day)
+        # date_today = "{}-{}-{}".format(date.today().year, date.today().month, date.today().day)
+        # date_last_month = "{}-{}-{}".format(date.today().year, date.today().month-1, date.today().day)
+        # if(date.today().month==1):
+        #     date_last_month = "{}-{}-{}".format(date.today().year-1, 12, date.today().day)
         print("Collecting Current Stock Data","-"*80)
         print("date and time: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
-        stock = yf.download(symbol.upper(),date_last_month,date_today)
+        stock = Stock.query.filter_by(symbol=symbol.upper()).first()
+        # stock = yf.download(symbol.upper(),date_last_month,date_today)
+        stock_price = get_current_stock_price(stock)
         print("date and time: ", datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
         print("Current Stock Data Collected","-"*80)
         stock_price = {
-            "date": "{}-{}-{}".format(date.today().day, date.today().month, date.today().year),
-            "price": stock.Close.values[-1]
+            # "date": "{}-{}-{}".format(date.today().day, date.today().month, date.today().year),
+            "price": stock_price,
+            "company": stock.company_name,
+            "symbol": symbol
         }
         return Response(
             mimetype="application/json",
