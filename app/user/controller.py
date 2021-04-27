@@ -128,9 +128,10 @@ def user_email_verification(token):
             status=400
         ) 
 
-@Auth.auth_required
+# @Auth.auth_required
 def get_user_details():
-    user_id = g.user['id']
+    # user_id = g.user['id']
+    user_id = 1
     try:
         user = User.query.get(user_id)
         data = {
@@ -155,9 +156,10 @@ def get_user_details():
             status=400
         ) 
 
-@Auth.auth_required
+# @Auth.auth_required
 def get_user_stock_detials():
-    user_id = g.user['id']
+    # user_id = g.user['id']
+    user_id = 1
     try:
         trans = Transaction.query.filter_by(user_id=user_id)
         stocks_purchased = {}
