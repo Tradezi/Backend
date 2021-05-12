@@ -34,6 +34,11 @@ class Stock(db.Model):
     def delete_all_rows():
         Stock.query.delete()
 
+    @staticmethod
+    def stock_via_symbol(symbol):
+        stock = Stock.query.filter_by(symbol=symbol).first()
+        return stock
+
     # @staticmethod
     # def get_user_via_email(email):
     #     user = User.query.filter_by(email=email).first()

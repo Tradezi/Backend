@@ -21,8 +21,8 @@ def get_current_stock_price(stock_details):
         date_last_month = "{}-{}-{}".format(date.today().year-1, 12, date.today().day)
     stock = yf.download(symbol.upper(),date_last_month,date_today)
     if(stock.Close.values.shape[0]==0):
-        db.session.delete(stock_details)
-        db.session.commit()
+        # db.session.delete(stock_details)
+        # db.session.commit()
         return -1
     return stock.Close.values[-1]
 
@@ -160,10 +160,12 @@ def nyse_stock_current_data(symbol):
             status=400
         ) 
 
-def transaction(stock_id,stock_price,num_of_stocks,buy):
+def transaction(stock_symbol,stock_price,num_of_stocks,buy):
     user_id=1
     try:
         user = User.query.get(user_id)
+        stock = Stock.stock_via_symbol(stock_symbol.upper())
+        stock_id = stock.id
         if(buy):
             if((num_of_stocks*stock_price)>user.funds):
                 return Response(

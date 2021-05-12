@@ -58,14 +58,14 @@ def stock_current():
 def stock_transaction():
     try:
         data = request.json
-        stock_id = data['stockId']
+        stock_symbol = data['stockSymbol']
         stock_price = data['stockPrice']
         num_of_stocks = data['numOfStocks']
         buy = data['buy']
         logger.info("/api/stocks/transaction => stock transaction stock_id: {}, stock_price: {}, num: {}, buy: {}".format(
-            stock_id, stock_price, num_of_stocks, buy
+            stock_symbol, stock_price, num_of_stocks, buy
         )) 
-        return transaction(stock_id,stock_price,num_of_stocks,buy)
+        return transaction(stock_symbol,stock_price,num_of_stocks,buy)
     except Exception as e:
         error_msg = get_error_msg(e)
         logger.error(error_msg)

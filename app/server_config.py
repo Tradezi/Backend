@@ -11,6 +11,3 @@ class ServerConfig(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     STATIC_VERSION = "1"
-
-    CELERY_BROKER_URL = 'redis://redis:6379/0'
-    CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
