@@ -35,7 +35,7 @@ route: GET api/stocks/current?symbol=<>
 3)
 route: POST api/stocks/transaction
 data:   {
-            'stockId': 1,
+            'stockSymbol': 1,
             'stockPrice': 10,
             'numofStocks': 5,
             'buy': 1

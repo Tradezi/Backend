@@ -12,7 +12,10 @@ from app.stocks.model import Stock, Transaction
 from app.user.model import User
 from app.Utils import get_error_msg
 from app import db, logger
+from app.user.auth import Auth
 
+
+@Auth.auth_required
 def get_current_stock_price(stock_details):
     symbol = stock_details.symbol
     date_today = "{}-{}-{}".format(date.today().year, date.today().month, date.today().day)
@@ -26,6 +29,8 @@ def get_current_stock_price(stock_details):
         return -1
     return stock.Close.values[-1]
 
+
+@Auth.auth_required
 def nse_stock_history_data(symbol,years):
     try:
         date_today = date(date.today().year, date.today().month, date.today().day)
@@ -60,7 +65,7 @@ def nse_stock_history_data(symbol,years):
             status=400
         ) 
 
-
+@Auth.auth_required
 def nyse_stock_history_data(symbol,years):
     try:
         date_today = "{}-{}-{}".format(date.today().year, date.today().month, date.today().day)
@@ -99,6 +104,7 @@ def nyse_stock_history_data(symbol,years):
             status=400
         ) 
 
+@Auth.auth_required
 def nse_stock_current_data(symbol):
     try:
         nse = Nse()
@@ -127,6 +133,7 @@ def nse_stock_current_data(symbol):
             status=400
         ) 
 
+@Auth.auth_required
 def nyse_stock_current_data(symbol):
     try:
         # date_today = "{}-{}-{}".format(date.today().year, date.today().month, date.today().day)
@@ -160,8 +167,10 @@ def nyse_stock_current_data(symbol):
             status=400
         ) 
 
+@Auth.auth_required
 def transaction(stock_symbol,stock_price,num_of_stocks,buy):
-    user_id=1
+    # user_id = 1
+    user_id = g.user['id']
     try:
         user = User.query.get(user_id)
         stock = Stock.stock_via_symbol(stock_symbol.upper())
@@ -231,7 +240,7 @@ def transaction(stock_symbol,stock_price,num_of_stocks,buy):
         ) 
 
 
-
+@Auth.auth_required
 def get_current_price_of_all_stocks(page):
     try:
         stocks = Stock.query.all()
