@@ -6,7 +6,7 @@ from nsetools import Nse
 from sqlalchemy import and_
 from nsepy import get_history
 from datetime import date, datetime
-from flask import request, Response, make_response, jsonify
+from flask import request, Response, make_response, jsonify, g
 
 from app.stocks.model import Stock, Transaction
 from app.user.model import User
