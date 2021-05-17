@@ -22,3 +22,36 @@
 2021-04-27 11:51:15,419 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
 2021-04-27 11:51:15,422 - debugLogger - ERROR - path app/stocks/controller.py, line 139: name 'company' is not defined
 2021-04-27 11:51:24,816 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-04-27 11:51:24,816 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: gme
+2021-04-27 11:51:15,422 - debugLogger - ERROR - path app/stocks/controller.py, line 139: name 'company' is not defined
+2021-05-15 19:17:24,169 - debugLogger - ERROR - path app/stocks/controller.py, line 158: Object of type Response is not JSON serializable
+2021-05-15 19:18:27,073 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-05-15 19:18:27,083 - debugLogger - ERROR - path app/stocks/controller.py, line 159: Object of type Response is not JSON serializable
+2021-05-15 19:19:51,189 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-05-15 19:19:51,200 - debugLogger - ERROR - path app/stocks/controller.py, line 160: Object of type Response is not JSON serializable
+2021-05-15 19:20:22,012 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-05-16 13:13:36,112 - debugLogger - ERROR - path app/stocks/routes.py, line 25: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+2021-05-16 13:14:17,468 - debugLogger - INFO - /api/stocks/history => stock history of symbol: aapl, years: 1
+2021-05-16 13:14:34,725 - debugLogger - INFO - /api/stocks/history => stock history of symbol: aapl, years: 1
+2021-05-16 13:26:46,127 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-05-16 13:26:47,482 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-05-16 13:29:17,166 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-05-16 13:29:17,986 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-05-16 13:29:39,868 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-05-16 13:29:40,362 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-05-16 13:30:11,425 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-05-16 13:30:12,554 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-05-16 13:30:23,045 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-05-16 13:30:24,015 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-05-16 13:30:42,888 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-05-16 13:30:43,688 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-05-16 13:31:10,220 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-05-16 13:31:11,552 - debugLogger - INFO - /api/stocks/history => stock history of symbol: aapl, years: 1
+2021-05-16 13:37:36,517 - debugLogger - INFO - /api/stocks/history => stock history of symbol: msft, years: 2
+2021-05-16 13:37:52,954 - debugLogger - ERROR - path app/stocks/routes.py, line 25: int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+2021-05-16 13:44:08,478 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-05-16 13:44:10,071 - debugLogger - INFO - /api/stocks/history => stock history of symbol: aapl, years: 1
+2021-05-16 13:44:22,506 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-05-16 13:44:23,529 - debugLogger - INFO - /api/stocks/history => stock history of symbol: aapl, years: 1
+2021-05-16 13:44:39,354 - debugLogger - INFO - /api/stocks/current => current stock price of symbol: aapl
+2021-05-16 13:44:39,945 - debugLogger - INFO - /api/stocks/history => stock history of symbol: aapl, years: 1
